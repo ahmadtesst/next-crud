@@ -38,17 +38,38 @@ const ItemsList = () => {
       url: `/api/items`,
     });
     if (data) {
-      console.log("🔆💢🔆💢🔆 ~ data:", data)
       setItems(data);
     }
   };
+
+
+  const handleItemDelete = async (item: Item) => {
+    const { data, error } = await apiHandler<ItemsResponse>({
+      method: "DELETE",
+      url: '/api/items',
+      data: { id: item._id },
+    });
+    if (data) {
+      refreshItems();
+    }
+  };
+
 
   return (
     <>
       <section className="text-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 ">
         {items?.map((item) => (
-          <div key={item._id} onClick={() => handleItemClick(item)}>
-            <Card title={item.title} />
+          <div key={item._id}>
+            <Card
+              handleDelete={() => {
+                handleItemDelete(item);
+              }}
+              handleEdit={() => {
+                handleItemClick(item);
+              }}
+              title={item.title}
+              createdAt={item.createdAt}
+            />
           </div>
         ))}
       </section>

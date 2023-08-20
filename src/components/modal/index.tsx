@@ -52,7 +52,7 @@ const Modal = ({
     } finally {
       setLoading(false);
       closeModal();
-      refreshItems()
+      refreshItems();
     }
   };
 
@@ -84,7 +84,7 @@ const Modal = ({
             type="submit"
             className="bg-yellow-500 text-black p-2 rounded hover:bg-yellow-600"
           >
-            {selectedItem ? "Update" : "Create"}
+            {loading ? "Loading..." : selectedItem ? "Update" : "Create"}
           </button>
         </div>
       </form>
